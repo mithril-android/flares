@@ -1,0 +1,10 @@
+# EditorConfig, project source file preferences
+
+root = true
+
+
+[*]
+
+# indentation preference
+indent_style = space
+indent_size = 2
