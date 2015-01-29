@@ -1,2 +1,3 @@
-# flares
+# Flares
 Flare your game.
+
