@@ -18,3 +18,4 @@ public class HomeActivity extends Activity {
     gamesListView.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_2, games));
   }
 }
+
