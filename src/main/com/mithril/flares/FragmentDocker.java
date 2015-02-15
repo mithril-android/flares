@@ -1,6 +1,7 @@
 package com.mithril.flares;
 
 import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import com.google.inject.Inject;
 
 /**
@@ -17,6 +18,18 @@ public class FragmentDocker {
   public FragmentDocker(FragmentManager manager){
 
     this.manager = manager;
+  }
+
+
+  public void dockDefault(){
+    GameListFragment gameListFragment = new GameListFragment();
+
+    FragmentTransaction fragmentTransaction = manager.beginTransaction();
+
+    fragmentTransaction.add(R.id.fragment_container, gameListFragment);
+    fragmentTransaction.addToBackStack(null);
+
+    fragmentTransaction.commit();
   }
 
 }

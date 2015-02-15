@@ -4,18 +4,26 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import com.google.inject.Inject;
+import roboguice.RoboGuice;
+import roboguice.activity.RoboActivity;
+import roboguice.inject.InjectResource;
 
-public class HomeActivity extends Activity {
+public class HomeActivity extends RoboActivity {
+
+  @Inject
+  private FragmentDocker docker;
+
+
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.home_layout);
 
-    String[] games = new String[] {"Assassin's Creed 1", "Assassin's Creed 2", "Assassin's Creed 3", "Assassin's Creed 4", "Assassin's Creed 5", "Assassin's Creed 6", "Assassin's Creed 7", "Assassin's Creed 8: Liberations", "Assassin's Creed 9: Kishore", "Assassin's Creed 10: Sandeep" };
+    setContentView(R.layout.home);
 
-    ListView gamesListView = (ListView) findViewById(R.id.game_list_view);
+    docker.dockDefault();
 
-    gamesListView.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_2, games));
   }
 }
 
