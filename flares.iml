@@ -14,5 +14,7 @@
     <orderEntry type="library" name="org.roboguice:roboguice:3.0-alpha-1" level="application" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="jdk" jdkName="Android API 21 Platform" jdkType="Android SDK" />
+    <orderEntry type="library" name="com.github.abyu:tide:1.0.1" level="application" />
+    <orderEntry type="library" name="com.google.code.gson:gson:2.3.1" level="application" />
   </component>
 </module>

@@ -12,7 +12,7 @@ apply plugin: 'com.android.application'
 
 android {
   compileSdkVersion 20
-  buildToolsVersion "20.0.0"
+  buildToolsVersion "21.1.2"
   sourceSets {
     main {
       manifest.srcFile 'AndroidManifest.xml'
@@ -33,6 +33,8 @@ configurations {
 
 dependencies {
   compile 'org.roboguice:roboguice:3.0-alpha-1'
+  compile 'com.github.abyu:tide:1.0.1'
+  compile 'com.google.code.gson:gson:2.3.1'
 }
 
 task copyToLib(type: Copy) {
