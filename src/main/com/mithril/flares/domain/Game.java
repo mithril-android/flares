@@ -6,7 +6,7 @@ public class Game {
   private String publisher;
   private String id;
   private String released;
-
+  private GameBoxImage box;
 
   public String getName() {
       return name;
@@ -38,5 +38,14 @@ public class Game {
 
   public void setReleased(String released) {
     this.released = released;
+  }
+
+  public void setBox(GameBoxImage box) {
+    this.box = box;
+  }
+
+  public String getImageUrl(){
+    return (box != null)? box.getMedium()
+      : "default url";
   }
 }

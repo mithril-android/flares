@@ -35,6 +35,7 @@ dependencies {
   compile 'org.roboguice:roboguice:3.0-alpha-1'
   compile 'com.github.abyu:tide:1.0.1'
   compile 'com.google.code.gson:gson:2.3.1'
+  compile 'com.squareup.picasso:picasso:2.5.0'
 }
 
 task copyToLib(type: Copy) {

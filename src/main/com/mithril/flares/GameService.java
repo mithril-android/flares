@@ -7,7 +7,6 @@ public class GameService {
 
   private GateKeeper keeper;
 
-
   @Inject
   public GameService(GateKeeper keeper){
 
@@ -16,6 +15,6 @@ public class GameService {
 
   public void fetchAllGames(){
 
-    keeper.sendRequest("http://10.0.2.2:8000/api/games");
+    keeper.sendRequest("http://flareserve.herokuapp.com/api/games");
   }
 }

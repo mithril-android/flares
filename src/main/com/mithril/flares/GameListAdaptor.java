@@ -1,38 +1,39 @@
 package com.mithril.flares;
 
 import android.content.Context;
+import android.graphics.drawable.BitmapDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 import com.google.inject.Inject;
 import com.mithril.flares.domain.Game;
 import com.mithril.flares.event.AllGameData;
 import com.mithril.flares.event.FetchComplete;
+import com.squareup.picasso.Picasso;
 import org.skk.tide.EventBus;
 import org.skk.tide.EventHandler;
 import org.skk.tide.HandleEvent;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class GameListAdaptor extends BaseAdapter implements EventHandler {
 
   private Context context;
 
-  private EventBus bus;
-
-
   @Inject
   public GameListAdaptor(Context context, EventBus bus){
 
     this.context = context;
-    this.bus = bus;
+    games = new Game[]{};
 
     bus.register(this, FetchComplete.class);
   }
 
-  private String[] games = new String[] {"Loading, please wait."};
+  private Game[] games;
 
   @Override
   public int getCount() {
@@ -52,12 +53,17 @@ public class GameListAdaptor extends BaseAdapter implements EventHandler {
   @Override
   public View getView(int i, View view, ViewGroup viewGroup) {
     LayoutInflater inflater = LayoutInflater.from(context);
+
     if(view == null)
       view = inflater.inflate(R.layout.game_list_item, null);
 
-    TextView gameItem = (TextView) view.findViewById(R.id.game_item);
+    String imageUrl = games[i].getImageUrl();
 
-    gameItem.setText(games[i]);
+    TextView gameItem = (TextView) view.findViewById(R.id.game_item);
+    ImageView imageView = (ImageView) view.findViewById(R.id.game_image);
+
+    gameItem.setText(games[i].getName());
+    Picasso.with(context).load(imageUrl).into(imageView);
 
     return view;
   }
@@ -65,12 +71,7 @@ public class GameListAdaptor extends BaseAdapter implements EventHandler {
   @HandleEvent(eventType = FetchComplete.class)
   public void handleData(AllGameData data){
     ArrayList<Game> allGames = data.getAllGames();
-    ArrayList<String> strings = new ArrayList<String>();
-    for(Game game : allGames){
-      strings.add(game.getName());
-    }
-
-    games = strings.toArray(games);
+    games = allGames.toArray(games);
     notifyDataSetChanged();
   }
 }
