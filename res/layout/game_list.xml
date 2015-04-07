@@ -1,10 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-  <ListView  xmlns:android="http://schemas.android.com/apk/res/android"
-             android:id="@+id/game_list_view"
+ <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                 android:layout_width="match_parent"
+                 android:layout_height="match_parent">
+
+  <EditText
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/searchGame"
+    android:textColor="@android:color/black"/>
+  <ListView
+            android:layout_below="@id/searchGame"
+            android:id="@+id/game_list_view"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content">
-
-
   </ListView>
+
+</RelativeLayout>
 

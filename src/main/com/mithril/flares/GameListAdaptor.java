@@ -1,7 +1,6 @@
 package com.mithril.flares;
 
 import android.content.Context;
-import android.graphics.drawable.BitmapDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +16,6 @@ import org.skk.tide.EventBus;
 import org.skk.tide.EventHandler;
 import org.skk.tide.HandleEvent;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class GameListAdaptor extends BaseAdapter implements EventHandler {
@@ -28,21 +26,22 @@ public class GameListAdaptor extends BaseAdapter implements EventHandler {
   public GameListAdaptor(Context context, EventBus bus){
 
     this.context = context;
-    games = new Game[]{};
+    filteredList = new ArrayList<Game>();
 
     bus.register(this, FetchComplete.class);
   }
 
-  private Game[] games;
+  private ArrayList<Game> filteredList;
+  private ArrayList<Game> allGamesList;
 
   @Override
   public int getCount() {
-    return games.length;
+    return filteredList.size();
   }
 
   @Override
   public Object getItem(int i) {
-    return games[i];
+    return filteredList.get(i);
   }
 
   @Override
@@ -57,21 +56,33 @@ public class GameListAdaptor extends BaseAdapter implements EventHandler {
     if(view == null)
       view = inflater.inflate(R.layout.game_list_item, null);
 
-    String imageUrl = games[i].getImageUrl();
+    String imageUrl = filteredList.get(i).getImageUrl();
 
     TextView gameItem = (TextView) view.findViewById(R.id.game_item);
     ImageView imageView = (ImageView) view.findViewById(R.id.game_image);
 
-    gameItem.setText(games[i].getName());
+    gameItem.setText(filteredList.get(i).getName());
     Picasso.with(context).load(imageUrl).into(imageView);
 
     return view;
   }
 
+  public void filter(String searchString){
+    filteredList.clear();
+
+    for(Game game : allGamesList){
+      if(game.getName().toLowerCase().startsWith(searchString.toLowerCase()))
+        filteredList.add(game);
+    }
+
+
+    notifyDataSetChanged();
+  }
+
+
   @HandleEvent(eventType = FetchComplete.class)
   public void handleData(AllGameData data){
-    ArrayList<Game> allGames = data.getAllGames();
-    games = allGames.toArray(games);
-    notifyDataSetChanged();
+    allGamesList = data.getAllGames();
+    filter("");
   }
 }

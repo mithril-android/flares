@@ -15,7 +15,13 @@ public class HomeActivity extends RoboActivity {
 
     setContentView(R.layout.home);
 
+  }
+
+  @Override
+  protected void onResume() {
+    super.onResume();
     docker.dockInitial();
+
   }
 }
 
